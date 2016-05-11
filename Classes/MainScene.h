@@ -2,6 +2,7 @@
 #define __MAIN_SCENE_H__
 
 #include "cocos2d.h"
+#include "Character.hpp"
 
 class MainScene : public cocos2d::Layer
 {
@@ -14,6 +15,12 @@ public:
 
     // implement the "static create()" method manually
     CREATE_FUNC(MainScene);
+    
+private:
+    Character* character;
+    
+    void onEnter() override;
+    void setupTouchHandling();
 };
 
 #endif // __MAIN_SCENE_H__
