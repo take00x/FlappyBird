@@ -27,5 +27,4 @@ protected:
     float accel;
 };
 
-
 #endif /* Character_hpp */

@@ -2,6 +2,8 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "CharacterReader.hpp"
+#include "ObstacleReader.hpp"
+#include "Constants.hpp"
 
 USING_NS_CC;
 
@@ -87,6 +89,7 @@ bool MainScene::init()
     
     CSLoader* instance = CSLoader::getInstance();
     instance->registReaderObject("CharacterReader", (ObjectFactory::Instance) CharacterReader::getInstance);
+    instance->registReaderObject("ObstacleReader", (ObjectFactory::Instance) ObstacleReader::getInstance);
     
     auto rootNode = CSLoader::createNode("MainScene.csb");
     
@@ -94,9 +97,12 @@ bool MainScene::init()
     rootNode->setContentSize(size);
     ui::Helper::doLayout(rootNode);
     
-    auto back = rootNode->getChildByName("back");
-    this->character = back->getChildByName<Character*>("character");
-
+    this->backgournd = rootNode->getChildByName("back");
+    this->character = this->backgournd->getChildByName<Character*>("character");
+    this->character->setLocalZOrder(1);
+    auto ground = this->backgournd->getChildByName("ground");
+    ground->setLocalZOrder(1);
+    
     addChild(rootNode);
 
     return true;
@@ -106,11 +112,30 @@ void MainScene::onEnter()
 {
     Layer::onEnter();
     this->setupTouchHandling();
+    this->scheduleUpdate();
+    this->schedule(CC_SCHEDULE_SELECTOR(MainScene::createObstacle), OBSTACLE_TIME_SPAN);
+}
+
+void MainScene::update(float dt) {
+    for (auto obstacle : this->obstacles) {
+        obstacle->moveLeft(SCROLL_SPEED_X * dt);
+    }
+}
+
+void MainScene::createObstacle(float dt) {
+    Obstacle* obstacle = dynamic_cast<Obstacle*>(CSLoader::createNode("Obstacle.csb"));
+    obstacle->setPosition(OBSTACLE_INIT_X, CCRANDOM_0_1() * (OBSTACLE_MAX_Y - OBSTACLE_MIN_Y) + OBSTACLE_MIN_Y);
+    this->backgournd->addChild(obstacle);
+    this->obstacles.pushBack(obstacle);
+    
+    if (this->obstacles.size() > OBSTACLE_LIMIT) {
+        this->obstacles.front()->removeFromParent();
+        this->obstacles.erase(this->obstacles.begin());
+    }
 }
 
 void MainScene::setupTouchHandling() {
     auto touchListener = EventListenerTouchOneByOne::create();
-    
     touchListener->onTouchBegan = [&](Touch* touch, Event* event)
     {
         this->character->jump();
@@ -118,4 +143,3 @@ void MainScene::setupTouchHandling() {
     };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 }
-

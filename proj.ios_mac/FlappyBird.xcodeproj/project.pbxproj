@@ -51,6 +51,8 @@
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		67264650BD08F5A9E8B7ED1D /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D65417CAF89D7ADE4119FEC /* libcocos2d iOS.a */; };
 		6CC743B7AEC6C4A1F5FEC304 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 01F741B993AED8B544209AD5 /* res */; };
+		73D524E61CE4122300B3D530 /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73D524E41CE4122300B3D530 /* Obstacle.cpp */; };
+		73D524E91CE4124800B3D530 /* ObstacleReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73D524E71CE4124800B3D530 /* ObstacleReader.cpp */; };
 		73DD747B1CE332CB00702DE0 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73DD74791CE332CB00702DE0 /* Character.cpp */; };
 		73DD747E1CE3357400702DE0 /* CharacterReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73DD747C1CE3357400702DE0 /* CharacterReader.cpp */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
@@ -113,6 +115,11 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		5D65417CAF89D7ADE4119FEC /* libcocos2d iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libcocos2d iOS.a"; path = "/Applications/Cocos/Cocos2d-x/cocos2d-x-3.10/prebuilt/ios/libcocos2d iOS.a"; sourceTree = "<absolute>"; };
+		73D524E21CE40EF700B3D530 /* Constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Constants.hpp; sourceTree = "<group>"; };
+		73D524E41CE4122300B3D530 /* Obstacle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Obstacle.cpp; sourceTree = "<group>"; };
+		73D524E51CE4122300B3D530 /* Obstacle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Obstacle.hpp; sourceTree = "<group>"; };
+		73D524E71CE4124800B3D530 /* ObstacleReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObstacleReader.cpp; sourceTree = "<group>"; };
+		73D524E81CE4124800B3D530 /* ObstacleReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObstacleReader.hpp; sourceTree = "<group>"; };
 		73DD74791CE332CB00702DE0 /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
 		73DD747A1CE332CB00702DE0 /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
 		73DD747C1CE3357400702DE0 /* CharacterReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterReader.cpp; sourceTree = "<group>"; };
@@ -253,10 +260,15 @@
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				73DD747C1CE3357400702DE0 /* CharacterReader.cpp */,
 				73DD747D1CE3357400702DE0 /* CharacterReader.hpp */,
+				73D524E21CE40EF700B3D530 /* Constants.hpp */,
 				73DD74791CE332CB00702DE0 /* Character.cpp */,
 				73DD747A1CE332CB00702DE0 /* Character.hpp */,
 				46880B8619C43A87006E1F66 /* MainScene.cpp */,
+				73D524E71CE4124800B3D530 /* ObstacleReader.cpp */,
+				73D524E81CE4124800B3D530 /* ObstacleReader.hpp */,
 				46880B8719C43A87006E1F66 /* MainScene.h */,
+				73D524E41CE4122300B3D530 /* Obstacle.cpp */,
+				73D524E51CE4122300B3D530 /* Obstacle.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -434,7 +446,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				73DD747E1CE3357400702DE0 /* CharacterReader.cpp in Sources */,
+				73D524E91CE4124800B3D530 /* ObstacleReader.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				73D524E61CE4122300B3D530 /* Obstacle.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* MainScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				73DD747B1CE332CB00702DE0 /* Character.cpp in Sources */,

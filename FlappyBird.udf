@@ -30,6 +30,7 @@
         <OpenedDocuments>
           <FilePathData Path="MainScene.csd" />
           <FilePathData Path="Character.csd" />
+          <FilePathData Path="Obstacle.csd" />
         </OpenedDocuments>
         <ActiveDocument Path="MainScene.csd" />
       </Value>

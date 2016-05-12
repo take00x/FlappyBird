@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Character.hpp"
+#include "Obstacle.hpp"
 
 class MainScene : public cocos2d::Layer
 {
@@ -16,10 +17,15 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(MainScene);
     
+    void onEnter() override;
+    void update(float dt) override;
+    void createObstacle(float dt);
+    
 private:
     Character* character;
+    cocos2d::Vector<Obstacle*> obstacles;
+    cocos2d::Node* backgournd;
     
-    void onEnter() override;
     void setupTouchHandling();
 };
 

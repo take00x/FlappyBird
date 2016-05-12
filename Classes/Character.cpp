@@ -7,6 +7,8 @@
 //
 
 #include "Character.hpp"
+#include "Constants.hpp"
+
 using namespace cocos2d;
 
 bool Character::init()
@@ -23,13 +25,13 @@ bool Character::init()
     this->timeline->retain();
     
     this->velocity = 0;
-    this->accel = -1000;
+    this->accel = GRAVITY_ACCEL;
     
     return true;
 }
 
 void Character::update(float dt) {
-    if (this->velocity > -400)
+    if (this->velocity >= SPEED_LIMIT)
         this->velocity += accel * dt;
     this->setPosition(this->getPosition() + Vec2(0, this->velocity * dt));
 }
@@ -40,6 +42,5 @@ void Character::onEnter() {
 }
 
 void Character::jump() {
-    this->velocity = 300;
-    //this->setPosition(this->getPosition() + Vec2(0, this->velocity));
+    this->velocity = JUMP_SPEED;
 }
