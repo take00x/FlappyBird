@@ -9,7 +9,7 @@
           <AbstractNodeData Name="back" ActionTag="-928774654" Tag="3" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" ctype="SpriteObjectData">
             <Size X="288.0000" Y="512.0000" />
             <Children>
-              <AbstractNodeData Name="character" ActionTag="826635370" Tag="6" IconVisible="True" LeftMargin="89.0000" RightMargin="199.0000" TopMargin="258.0000" BottomMargin="254.0000" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+              <AbstractNodeData Name="character" ActionTag="826635370" Tag="6" IconVisible="True" LeftMargin="89.0000" RightMargin="199.0000" TopMargin="258.0000" BottomMargin="254.0000" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="0.5000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
                 <Size X="0.0000" Y="0.0000" />
                 <AnchorPoint />
                 <Position X="89.0000" Y="254.0000" />
@@ -26,6 +26,17 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition Y="0.2188" />
+                <PreSize X="1.1667" Y="0.2188" />
+                <FileData Type="Normal" Path="Assets/stage/ground.png" Plist="" />
+                <BlendFunc Src="1" Dst="771" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="ground2" ActionTag="21884289" Tag="18" IconVisible="False" LeftMargin="288.0000" RightMargin="-336.0000" TopMargin="400.0000" ctype="SpriteObjectData">
+                <Size X="336.0000" Y="112.0000" />
+                <AnchorPoint ScaleY="1.0000" />
+                <Position X="288.0000" Y="112.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="1.0000" Y="0.2188" />
                 <PreSize X="1.1667" Y="0.2188" />
                 <FileData Type="Normal" Path="Assets/stage/ground.png" Plist="" />
                 <BlendFunc Src="1" Dst="771" />

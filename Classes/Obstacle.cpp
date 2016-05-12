@@ -29,3 +29,14 @@ bool Obstacle::init()
 void Obstacle::moveLeft(float distance) {
     this->setPosition(this->getPosition() + Vec2(-distance, 0));
 }
+
+std::vector<Rect> Obstacle::getRect() {
+    std::vector<Rect> rect;
+    float width = this->getChildByName("pipe_top")->getContentSize().width;
+    float height = this->getChildByName("pipe_top")->getContentSize().height;
+    
+    rect.push_back(Rect(this->getPositionX() - width / 2, this->getPositionY() + 50, width, height));
+    rect.push_back(Rect(this->getPositionX() - width / 2, this->getPositionY() - 50 - height, width, height));
+    
+    return rect;
+}

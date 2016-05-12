@@ -26,21 +26,44 @@ bool Character::init()
     
     this->velocity = 0;
     this->accel = GRAVITY_ACCEL;
+    this->isFlying = false;
+    this->touchGround = false;
     
     return true;
 }
 
 void Character::update(float dt) {
-    if (this->velocity >= SPEED_LIMIT)
-        this->velocity += accel * dt;
-    this->setPosition(this->getPosition() + Vec2(0, this->velocity * dt));
+    if (isFlying) {
+        if (this->velocity >= SPEED_LIMIT)
+            this->velocity += accel * dt;
+        this->setPosition(this->getPosition() + Vec2(0, this->velocity * dt));
+        if (this->getPositionY() - this->getChildByName("bird")->getContentSize().height / 2 <= character_min_y) {
+            this->setPositionY(character_min_y + this->getChildByName("bird")->getContentSize().height / 2);
+            this->touchGround = true;
+        }
+    }
 }
 
 void Character::onEnter() {
     Node::onEnter();
     this->scheduleUpdate();
+    this->character_min_y = this->getParent()->getChildByName<Sprite*>("ground")->getContentSize().height;
 }
 
 void Character::jump() {
     this->velocity = JUMP_SPEED;
+    
+    this->stopAllActions();
+    this->runAction(this->timeline);
+    this->timeline->play("fly", false);
+}
+
+Rect Character::getRect() {
+    float width = this->getChildByName("bird")->getContentSize().width;
+    float height = this->getChildByName("bird")->getContentSize().height;
+    return Rect(this->getPositionX() - width / 2, this->getPositionY() - height / 2, width, height);
+}
+
+void Character::setisFlying(bool isFlying) {
+    this->isFlying = isFlying;
 }

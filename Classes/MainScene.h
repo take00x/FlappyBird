@@ -5,6 +5,12 @@
 #include "Character.hpp"
 #include "Obstacle.hpp"
 
+enum class State {
+    Ready,
+    Playing,
+    GameOver
+};
+
 class MainScene : public cocos2d::Layer
 {
 public:
@@ -12,7 +18,7 @@ public:
     static cocos2d::Scene* createScene();
 
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();
+    virtual bool init() override;
 
     // implement the "static create()" method manually
     CREATE_FUNC(MainScene);
@@ -25,8 +31,14 @@ private:
     Character* character;
     cocos2d::Vector<Obstacle*> obstacles;
     cocos2d::Node* backgournd;
+    cocos2d::Sprite* ground;
+    cocos2d::Sprite* ground2;
+    State state;
     
     void setupTouchHandling();
+    void triggerReady();
+    void tirggerPlaying();
+    void triggerGameOver();
 };
 
 #endif // __MAIN_SCENE_H__

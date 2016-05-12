@@ -16,15 +16,22 @@ class Character : public cocos2d::Node
 {
 public:
     CREATE_FUNC(Character);
+    
+    bool touchGround;
+    
     bool init() override;
     void update(float dt) override;
     void onEnter() override;
     void jump();
+    cocos2d::Rect getRect();
+    void setisFlying(bool isFlying);
     
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
     float velocity;
     float accel;
+    bool isFlying;
+    float character_min_y;
 };
 
 #endif /* Character_hpp */

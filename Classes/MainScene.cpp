@@ -100,8 +100,10 @@ bool MainScene::init()
     this->backgournd = rootNode->getChildByName("back");
     this->character = this->backgournd->getChildByName<Character*>("character");
     this->character->setLocalZOrder(1);
-    auto ground = this->backgournd->getChildByName("ground");
+    this->ground = this->backgournd->getChildByName<Sprite*>("ground");
     ground->setLocalZOrder(1);
+    this->ground2 = this->backgournd->getChildByName<Sprite*>("ground2");
+    ground2->setLocalZOrder(1);
     
     addChild(rootNode);
 
@@ -113,12 +115,25 @@ void MainScene::onEnter()
     Layer::onEnter();
     this->setupTouchHandling();
     this->scheduleUpdate();
-    this->schedule(CC_SCHEDULE_SELECTOR(MainScene::createObstacle), OBSTACLE_TIME_SPAN);
+    this->triggerReady();
 }
 
 void MainScene::update(float dt) {
     for (auto obstacle : this->obstacles) {
         obstacle->moveLeft(SCROLL_SPEED_X * dt);
+    }
+    
+    for (auto obstacle : this->obstacles)
+        for (Rect obstaclerect : obstacle->getRect())
+            if (this->character->getRect().intersectsRect(obstaclerect) || this->character->touchGround)
+                this->triggerGameOver();
+    if (this->state == State::Playing) {
+        this->ground->setPositionX(this->ground->getPositionX() - SCROLL_SPEED_X * dt);
+        this->ground2->setPositionX(this->ground2->getPositionX() - SCROLL_SPEED_X * dt);
+        if (this->ground->getPositionX() < 0)
+            this->ground2->setPositionX(this->ground->getPositionX() + 288);
+        if (this->ground2->getPositionX() < 0)
+            this->ground->setPositionX(this->ground2->getPositionX() + 288);
     }
 }
 
@@ -138,8 +153,35 @@ void MainScene::setupTouchHandling() {
     auto touchListener = EventListenerTouchOneByOne::create();
     touchListener->onTouchBegan = [&](Touch* touch, Event* event)
     {
-        this->character->jump();
+        switch (this->state) {
+            case State::Ready:
+                this->tirggerPlaying();
+            case State::Playing:
+                this->character->jump();
+                break;
+            case State::GameOver:
+                auto nextGameScene = MainScene::createScene();
+                auto transition = TransitionFade::create(1.0f, nextGameScene);
+                Director::getInstance()->replaceScene(transition);
+                break;
+        }
         return true;
     };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+}
+
+void MainScene::triggerReady(){
+    this->state = State::Ready;
+    this->character->setisFlying(false);
+}
+
+void MainScene::tirggerPlaying() {
+    this->state = State::Playing;
+    this->character->setisFlying(true);
+    this->schedule(CC_SCHEDULE_SELECTOR(MainScene::createObstacle), OBSTACLE_TIME_SPAN);
+}
+
+void MainScene::triggerGameOver() {
+    this->state = State::GameOver;
+    this->unscheduleAllCallbacks();
 }
