@@ -107,6 +107,9 @@ bool MainScene::init()
     
     addChild(rootNode);
 
+    this->scoreLabel = this->backgournd->getChildByName<cocos2d::ui::TextBMFont*>("scoreLabel");
+    this->scoreLabel->setLocalZOrder(1);
+    
     return true;
 }
 
@@ -130,10 +133,17 @@ void MainScene::update(float dt) {
     if (this->state == State::Playing) {
         this->ground->setPositionX(this->ground->getPositionX() - SCROLL_SPEED_X * dt);
         this->ground2->setPositionX(this->ground2->getPositionX() - SCROLL_SPEED_X * dt);
-        if (this->ground->getPositionX() < 0)
+        if (this->ground->getPositionX() < 0 && this->ground->getPositionX() + SCROLL_SPEED_X * dt > 0)
             this->ground2->setPositionX(this->ground->getPositionX() + 288);
-        if (this->ground2->getPositionX() < 0)
+        if (this->ground2->getPositionX() < 0 && this->ground2->getPositionX() + SCROLL_SPEED_X * dt > 0)
             this->ground->setPositionX(this->ground2->getPositionX() + 288);
+    }
+    
+    for (auto obstacle : this->obstacles) {
+        float currentX = obstacle->getPositionX();
+        float lastX = currentX + SCROLL_SPEED_X * dt;
+        if (currentX < this->character->getPositionX() && lastX > this->character->getPositionX())
+            setScore(++score);
     }
 }
 
@@ -172,6 +182,8 @@ void MainScene::setupTouchHandling() {
 
 void MainScene::triggerReady(){
     this->state = State::Ready;
+    this->score = 0;
+    this->setScore(this->score);
     this->character->setisFlying(false);
 }
 
@@ -184,4 +196,8 @@ void MainScene::tirggerPlaying() {
 void MainScene::triggerGameOver() {
     this->state = State::GameOver;
     this->unscheduleAllCallbacks();
+}
+
+void MainScene::setScore(int score) {
+    this->scoreLabel->setString(std::to_string(score));
 }

@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "Character.hpp"
 #include "Obstacle.hpp"
+#include "ui/cocosGUI.h"
 
 enum class State {
     Ready,
@@ -34,11 +35,14 @@ private:
     cocos2d::Sprite* ground;
     cocos2d::Sprite* ground2;
     State state;
+    cocos2d::ui::TextBMFont* scoreLabel;
+    int score;
     
     void setupTouchHandling();
     void triggerReady();
     void tirggerPlaying();
     void triggerGameOver();
+    void setScore(int score);
 };
 
 #endif // __MAIN_SCENE_H__
